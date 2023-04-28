@@ -8,9 +8,5 @@
 # setup other necessary code here, e.g., signal handling
 # DON'T change the command line arguments
 
-export WANDB_DIR=$PWD
-export WANDB_PROJECT=wandb-stresstest
-export WANDB_MODE=offline
-
 # do not edit the lines below
 run_tasks.sh "$@"

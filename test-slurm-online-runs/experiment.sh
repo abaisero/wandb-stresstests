@@ -1,6 +1,6 @@
 #!/bin/bash
 
-num_tasks=1000
+num_tasks=100
 num_tasks_per_job=20
 
 # create unique experiment id
@@ -18,7 +18,7 @@ for i in $(seq $num_tasks); do
   task_id="task=$i"
 
   # create task command
-  task_command="$PWD/task.sh 1_000 --sleep 1"
+  task_command="$PWD/main.py $((20 * 60 * 60)) --num-logs 10"
 
   # echo task path and command
   echo $experiment_id $task_id $task_command

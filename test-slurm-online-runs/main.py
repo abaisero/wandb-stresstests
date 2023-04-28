@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import random
 import time
 
 import wandb
@@ -9,8 +10,8 @@ import wandb
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('n', type=int)
-    parser.add_argument('--sleep', type=int, default=None)
+    parser.add_argument('runtime', type=int)
+    parser.add_argument('--num-logs', type=int, default=100)
 
     return parser.parse_args()
 
@@ -21,25 +22,23 @@ def main():
     wandb.init(config=vars(args))
     assert wandb.run is not None
 
-    for i in range(args.n):
-        wandb.log(
-            {
-                'i': i,
-            },
-            step=i,
-            commit=False,
-        )
+    sleeptime = args.runtime / args.num_logs
+
+    y = 0.0
+
+    for x in range(args.num_logs):
+        time.sleep(sleeptime)
+
+        y += random.random() - 0.5
 
         wandb.log(
             {
-                'time': time.time(),
+                'x': x,
+                'y': y,
             },
-            step=i,
+            step=x,
             commit=False,
         )
-
-        if args.sleep is not None:
-            time.sleep(args.sleep)
 
 
 if __name__ == '__main__':
